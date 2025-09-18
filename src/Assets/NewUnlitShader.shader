@@ -23,6 +23,7 @@ Shader "Unlit/NewUnlitShader"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                float3 normal: NORMAL;
             };
 
             struct v2f
@@ -30,7 +31,7 @@ Shader "Unlit/NewUnlitShader"
                 float2 uv : TEXCOORD0;
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
-                float3 pos : TEXCOORD1;
+                float3 normal : NORMAL;
             };
 
             sampler2D _MainTex;
@@ -41,15 +42,15 @@ Shader "Unlit/NewUnlitShader"
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                o.pos = v.vertex.xyz;
+                o.normal = v.normal.xyz;
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // モデルの位置を色に変換
-                fixed4 col = fixed4(i.pos.xyz, 1);
+                // 法線を正規化して色に変換
+                fixed4 col = fixed4(i.normal.xyz * 0.5 + 0.5, 1);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
