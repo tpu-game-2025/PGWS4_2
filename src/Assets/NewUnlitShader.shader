@@ -11,6 +11,9 @@ Shader "Unlit/NewUnlitShader"
 
         Pass
         {
+            Cull Front
+            ZTest Greater
+
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -48,6 +51,7 @@ Shader "Unlit/NewUnlitShader"
             {
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
+                col = fixed4(1, 0, 1, 1);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
