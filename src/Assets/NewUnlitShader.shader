@@ -49,8 +49,9 @@ Shader "Unlit/NewUnlitShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // 法線を正規化して色に変換
-                fixed4 col = fixed4(i.normal.xyz * 0.5 + 0.5, 1);
+                // 虹のグラデーション
+                float t = i.normal.x*0.5+0.5;
+                fixed4 col = fixed4(saturate(abs(3*t+fixed3(-1.5,-1,-2))*fixed3(1,-1,-1)+fixed3(-0.5,1,1)), 1);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
