@@ -3,8 +3,7 @@
 
 # 結果画像
 
-![第2回の結果](<img width="1920" height="1080" alt="スクリーンショット (2)" src="https://github.com/user-attachments/assets/d312853c-4d38-4c37-a7e9-213dd7be2166" />
-)
+![第2回の結果](スクリーンショット (2).png)
 - 工夫した点：xxx
 
 # 進め方
