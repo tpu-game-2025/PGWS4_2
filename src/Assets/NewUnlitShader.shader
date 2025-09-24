@@ -11,7 +11,7 @@ Shader "Unlit/NewUnlitShader"
 
         Pass
         {
-		    ZTest LEqual
+		    ZTest Greater
 		
 
             CGPROGRAM
@@ -54,7 +54,7 @@ Shader "Unlit/NewUnlitShader"
             {
                 // sample the texture
 				//虹のグラデーション
-				float t = i.normal.x*0.5 + 0.5;
+				float t = abs(i.normal.x);
 				fixed4 col = fixed4(saturate(abs(3*t+fixed3(-1.5,-1,-2))*fixed3(1,-1,-1)+fixed3(-0.5,1,1)),1)
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
