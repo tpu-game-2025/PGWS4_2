@@ -1,17 +1,20 @@
-Shader "Custom/Wood_Shader"
+Shader "Custom/Cauldron_Shader"
 {
     Properties
     {
-        [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
+        [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 0)
         [MainTexture] _BaseMap("Base Map", 2D) = "white"
     }
 
     SubShader
     {
-        Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" }
+        Tags { "RenderType" = "Fade" "RenderPipeline" = "UniversalPipeline" }
 
         Pass
         {
+            Cull Front
+            ZTest Greater
+
             HLSLPROGRAM
 
             #pragma vertex vert
@@ -23,14 +26,12 @@ Shader "Custom/Wood_Shader"
             {
                 float4 positionOS : POSITION;
                 float2 uv : TEXCOORD0;
-                float3 normal : NORMAL;
             };
 
             struct Varyings
             {
                 float4 positionHCS : SV_POSITION;
                 float2 uv : TEXCOORD0;
-                float3 normal : NORMAL;
             };
 
             TEXTURE2D(_BaseMap);
@@ -46,16 +47,13 @@ Shader "Custom/Wood_Shader"
                 Varyings OUT;
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
                 OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
-                OUT.normal = IN.normal.xyz;
                 return OUT;
             }
 
             half4 frag(Varyings IN) : SV_Target
             {
-                // half4 color = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, IN.uv) * _BaseColor;
-                half4 color = half4(IN.normal * 0.5 + 0.5, 1);
-                color = lerp(half4(1,0,0,1), half4(0,1,0,1), IN.normal.x *0.5+0.5);
-                color = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, IN.uv) * color;
+                half4 color = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, IN.uv) * _BaseColor;
+                // half4 color = half4(1,1,1,0);
                 return color;
             }
             ENDHLSL
