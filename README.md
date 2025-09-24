@@ -3,9 +3,10 @@
 
 # 結果画像
 
-![第2回の結果](<img width="1920" height="1080" alt="スクリーンショット (2)" src="https://github.com/user-attachments/assets/d312853c-4d38-4c37-a7e9-213dd7be2166" />
-)
-- 工夫した点：xxx
+![第2回の結果](https://github.com/soltshio/PGWS4_2/blob/main/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%20(2).png?raw=true)
+- 工夫した点：
+- ・真ん中から左右二方向に虹のグラデーションがかかるようにした。
+- ・床の奥にあるものだけを描画するようにした。
 
 # 進め方
 
