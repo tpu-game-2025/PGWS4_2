@@ -3,7 +3,7 @@
 
 # 結果画像
 
-![第2回の結果](スクリーンショット (2).png)
+![第2回の結果](https://github.com/soltshio/PGWS4_2/blob/main/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%20(2).png?raw=true)
 - 工夫した点：xxx
 
 # 進め方
