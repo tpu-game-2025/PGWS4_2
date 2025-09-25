@@ -2,18 +2,19 @@ Shader "Custom/Cauldron_Shader"
 {
     Properties
     {
-        [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 0)
+        _XPeriod("X Period", Float) = 1
+        _YPeriod("Y Period", Float) = 1
         [MainTexture] _BaseMap("Base Map", 2D) = "white"
     }
 
     SubShader
     {
-        Tags { "RenderType" = "Fade" "RenderPipeline" = "UniversalPipeline" }
+        Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" }
 
         Pass
         {
-            Cull Front
             ZTest Greater
+            Cull Front
 
             HLSLPROGRAM
 
@@ -32,14 +33,16 @@ Shader "Custom/Cauldron_Shader"
             {
                 float4 positionHCS : SV_POSITION;
                 float2 uv : TEXCOORD0;
+                float3 pos : TEXCOORD1;
             };
 
             TEXTURE2D(_BaseMap);
             SAMPLER(sampler_BaseMap);
 
             CBUFFER_START(UnityPerMaterial)
-                half4 _BaseColor;
                 float4 _BaseMap_ST;
+                float _XPeriod;
+                float _YPeriod;
             CBUFFER_END
 
             Varyings vert(Attributes IN)
@@ -47,13 +50,16 @@ Shader "Custom/Cauldron_Shader"
                 Varyings OUT;
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
                 OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
+                OUT.pos = IN.positionOS.xyz;
                 return OUT;
             }
 
             half4 frag(Varyings IN) : SV_Target
             {
-                half4 color = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, IN.uv) * _BaseColor;
-                // half4 color = half4(1,1,1,0);
+                half x = cos(IN.pos.x * _XPeriod) * 0.5 + 0.5;
+                half y = cos(IN.pos.y * _YPeriod) * 0.5 + 0.5;
+                
+                half4 color = half4(x, y, 1 - max(x, y), 0);
                 return color;
             }
             ENDHLSL
