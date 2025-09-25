@@ -3,8 +3,14 @@
 
 # 結果画像
 
-![第2回の結果](???.png)
-- 工夫した点：xxx
+![第2回の結果](screenshot.png)
+## 工夫した点
+- Inspector上で編集可能な縦横の縞模様を描画するshaderを書いた
+- BaseTextureから色を変化させるshaderを書いた
+
+
+## 使用素材
+[AIPICT](https://aipict.com/)
 
 # 進め方
 
