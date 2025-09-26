@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Material
-  m_Shader: {fileID: 4800000, guid: d75721b42f189b8488878a3d7f5afd15, type: 3}
+  m_Shader: {fileID: 4800000, guid: 43fc5d58fd1e50845b319b84ac8e63ac, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

@@ -1,4 +1,4 @@
-Shader "Unlit/NewUnlitShader"
+Shader "Unlit/sheder"
 {
     Properties
     {
@@ -11,6 +11,8 @@ Shader "Unlit/NewUnlitShader"
 
         Pass
         {
+           
+
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -23,6 +25,8 @@ Shader "Unlit/NewUnlitShader"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                float3 normal : NORMAL;
+               
             };
 
             struct v2f
@@ -30,6 +34,8 @@ Shader "Unlit/NewUnlitShader"
                 float2 uv : TEXCOORD0;
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
+                float3 pos : TEXCOORD1;
+                float3 normal : NORMAL;
             };
 
             sampler2D _MainTex;
@@ -40,14 +46,20 @@ Shader "Unlit/NewUnlitShader"
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.normal = v.normal.xyz;
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
+                float t = (sin(_Time.y)*0.5+0.5);
+                fixed4 col = lerp(fixed4(1,0,0,1), fixed4(0,0,1,1), t);
+
                 // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
+                // fixed4 col = tex2D(_MainTex, i.uv);
+                //fixed4 col = lerp(fixed4(1,0,0,1),fixed4(0,0,1,1),i.normal.x*0.5+0.5);
+
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
